@@ -1,0 +1,8 @@
+# Changelog
+
+## Unreleased
+
+- Add Timeweb Cloud S3 MCP server, streaming CLI and installable skill using the shared kit.
+- Apply read-only defaults, independent access levels, scoped access, signed approval, confined files and redacted audit.
+- Add the ru-1 endpoint, bucket tariff catalog and documented seven-day presign ceiling.
+- Disable move, default writes and unconfirmed Object Lock configuration writes; retain documented versioning, tags, CORS and policy tools.

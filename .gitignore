@@ -1,6 +1,5 @@
 /dist/
-/bin/
-*.test
-*.out
-coverage.*
-.env
+/.superpowers/
+/.conformance-data/
+/timeweb-s3
+/.kit/

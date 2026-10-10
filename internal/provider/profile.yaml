@@ -1,0 +1,46 @@
+id: timeweb
+display_name: Timeweb Cloud
+env_prefix: TIMEWEB_S3_
+uri_scheme: timeweb-s3
+binary: timeweb-s3
+default_pool: ru-1
+path_style: true
+pools:
+  - id: ru-1
+    endpoint: https://s3.twcstorage.ru
+    location: Россия, ru-1
+    multi_az: false
+    storage_classes: [standard, hot, cold]
+storage_classes:
+  - {id: standard, name_ru: Стандартный (каталог тарифов бакета), price_rub_gb_month: 0, verified: false, checked_at: "2026-10-10"}
+  - {id: hot, name_ru: Премиальный (каталог тарифов бакета), price_rub_gb_month: 0, verified: false, checked_at: "2026-10-10"}
+  - {id: cold, name_ru: Холодный (каталог тарифов бакета), price_rub_gb_month: 2.2, verified: false, checked_at: "2026-10-10"}
+features:
+  versioning: true
+  object_lock_config: false
+  object_retention: true
+  object_tagging: true
+  bucket_tagging: true
+  lifecycle: true
+  cors: true
+  bucket_policy: true
+  conditional_writes: false
+  conditional_delete: false
+  multipart: true
+  presign: true
+  acl: true
+limits:
+  max_put_bytes: 5000000000
+  max_parts: 10000
+  rate_limits: {}
+presign_max_seconds: 604800
+verified: false
+presign_note: "До 7 дней по AWS CLI документации; endpoint без собственного домена. standard/hot/cold — каталог тарифов бакета, не значения X-Amz-Storage-Class. Условия записи/удаления и PUT ObjectLock config требуют живой проверки."
+docs_urls:
+  - https://timeweb.cloud/docs/s3-storage/manage-storage/s3-guide
+  - https://timeweb.cloud/docs/s3-storage/tools/aws-cli
+  - https://timeweb.cloud/docs/s3-storage/supported-features/presigned-url
+  - https://timeweb.cloud/docs/s3-storage/supported-features/object-lock
+  - https://timeweb.cloud/docs/s3-storage/manage-storage/s3-autoscaling
+  - https://timeweb.cloud/docs/s3-storage/tariffication
+  - https://timeweb.cloud/services/s3-storage
