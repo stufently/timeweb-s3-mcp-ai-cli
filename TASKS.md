@@ -7,3 +7,10 @@
 - Релиз v0.1.0 и публикация OCI/Registry отложены до живой проверки.
 
 - **[предположение]**: условия записи/удаления, PUT default ObjectLock config, object StorageClass, virtual-host/multi-AZ, серверные пределы/ошибки и льготы аккаунта; подробно в [ресерче](docs/research/timeweb-s3.md).
+
+## Обнаружение проекта — 11.10.2026
+
+- Завершено: описание, homepage и 20 topics проверены через GitHub API.
+- Завершено: README RU/EN с отдельным сценарием, FAQ провайдера и ссылками на все проекты и общий каталог.
+- Проверено в Docker: ссылки README и страниц, восемь PNG/SVG; у провайдеров check_docs (заголовки, compat и Registry schema). Изменения подготовлены для доставки в main; статус текущего CI — в Actions.
+- Social preview: SVG и PNG 1280×640 готовы в `docs/assets/`; установка в GitHub Settings требует авторизованного браузера администратора. [Инструкция](https://github.com/stufently/s3-mcp-ai-cli-kit/blob/main/docs/social-preview.md).

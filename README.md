@@ -1,12 +1,14 @@
 # Timeweb Cloud S3 MCP Server & AI CLI
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-development-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-Timeweb Cloud S3 Object Storage через MCP и CLI: Claude Code, Cursor и Codex помогают выполнять бэкап и работать с файлами, а AI-агент получает ограниченный доступ и подтверждение опасных действий.
+MCP-сервер и CLI для S3 Timeweb Cloud (Таймвеб): просмотр объектов, проверка объёма бэкапов и скачивание архивов через Claude Code, Cursor и Codex. Бинарь `timeweb-s3` подключается к S3 API отдельно от выбора тарифа бакета в панели.
+
+[English guide](README.en.md) · [Каталог S3 MCP-серверов](https://stufently.github.io/s3-mcp-ai-cli-kit/)
 
 ## English
 
-A single Go binary for Timeweb Cloud Object Storage: a stdio MCP server, streaming CLI and installable agent skill. Read-only MCP access is the default; independent write/delete/admin levels, bucket/prefix scope, human approval and confined local file access protect data. Large files travel directly through presigned URLs or multipart uploads. See the [full English guide](README.en.md).
+A Go MCP server, CLI and agent skill for Timeweb Cloud S3 Object Storage. Connect Claude Code, Cursor and Codex to scoped object storage for inspection and backup recovery. Bucket plans are chosen in the console; PUT Object Lock config is disabled. See the [full English guide](README.en.md).
 
 ## Быстрый старт
 
@@ -69,6 +71,18 @@ Codex: ~/.codex/config.toml. Существующая таблица требу�
 
 Аналитика сканирует максимум max_scan (по умолчанию 10000); partial/token отмечают неполный результат. Prefix usage выдаёт страницы агрегатов через next_result_offset. Это не биллинг.
 
+## Сценарий: Восстановление архивов и учёт объёма префикса
+
+Оцените объём существующего префикса и восстановите архив Таймвеб в новый локальный файл. `du` ограничивает число просматриваемых объектов; результат с `partial` не является полным объёмом бакета. Продолжение по токену доступно через MCP-инструмент `s3_prefix_usage`:
+
+```bash
+timeweb-s3 du backups/daily/ --max-scan 10000 --json
+timeweb-s3 stat backups/daily/archive.tar
+timeweb-s3 cp s3://backups/daily/archive.tar ./restored-timeweb.tar
+```
+
+Примеры используют существующий бакет `backups` и объект `daily/archive.tar`; замените их своими значениями. Профиль и API облака ещё требуют [живой проверки](TASKS.md).
+
 ## CLI
 
 ```bash
@@ -129,6 +143,12 @@ Lifecycle, ACL, bucket tagging и object retention могут поддержив
 
 ## FAQ
 
+**Как подключить S3 Таймвеб к Cursor?** Сохраните ключи командой `timeweb-s3 auth set`, посмотрите `mcp install --client cursor --dry-run`, затем выполните установку без `--dry-run`. Файл клиента не содержит S3-секретов.
+
+**Можно ли выбрать холодный тариф Timeweb через StorageClass?** В этом проекте `standard/hot/cold` описывают каталог тарифов бакета, а не значения заголовка `X-Amz-Storage-Class`. Выбор тарифа делайте через панель; подробности — в [ресерче Timeweb](docs/research/timeweb-s3.md).
+
+**Почему нет инструмента настройки Object Lock в Timeweb?** PUT Object Lock configuration выключен в профиле до подтверждения. Возможность сервиса и зарегистрированный инструмент проекта — разные вещи; смотрите [compat](docs/compat.md) и статус живой проверки.
+
 **Что такое MCP-сервер?** Программа предоставляет агентам инструменты и ресурсы через Model Context Protocol; здесь stdio.
 
 **Как подключить MCP-сервер к Claude Code?** Сохрани ключи auth set, затем используй project install либо напечатанную user-команду.
@@ -142,7 +162,18 @@ Lifecycle, ACL, bucket tagging и object retention могут поддержив
 
 ## Другие провайдеры
 
-Семейство: Selectel, Yandex Cloud, VK Cloud, Cloud.ru, Timeweb Cloud, MWS, Beget. Все используют [общий kit](https://github.com/stufently/s3-mcp-ai-cli-kit).
+[Общий каталог: MCP-серверы и CLI для российских S3](https://stufently.github.io/s3-mcp-ai-cli-kit/).
+
+| Провайдер | Репозиторий | Сценарий |
+|---|---|---|
+| Selectel | [selectel-s3-mcp-ai-cli](https://github.com/stufently/selectel-s3-mcp-ai-cli) | Выбор пула и восстановление резервных копий |
+| Yandex Cloud | [yandex-s3-mcp-ai-cli](https://github.com/stufently/yandex-s3-mcp-ai-cli) | Инвентаризация объектов и проверка версий бэкапов |
+| VK Cloud | [vkcloud-s3-mcp-ai-cli](https://github.com/stufently/vkcloud-s3-mcp-ai-cli) | Проверка Hotbox/Icebox и доступ к нужному региону |
+| Cloud.ru | [cloudru-s3-mcp-ai-cli](https://github.com/stufently/cloudru-s3-mcp-ai-cli) | Диагностика доступа к Evolution Object Storage |
+| Timeweb Cloud | [timeweb-s3-mcp-ai-cli](https://github.com/stufently/timeweb-s3-mcp-ai-cli) | Восстановление архивов и учёт объёма префикса |
+| MWS | [mws-s3-mcp-ai-cli](https://github.com/stufently/mws-s3-mcp-ai-cli) | Проверка HMAC-доступа и короткие ссылки на архивы |
+| Beget | [beget-s3-mcp-ai-cli](https://github.com/stufently/beget-s3-mcp-ai-cli) | Просмотр и восстановление файлов из готового бакета |
+| Shared Go kit | [s3-mcp-ai-cli-kit](https://github.com/stufently/s3-mcp-ai-cli-kit) | Общие MCP, CLI, защиты и CI |
 
 ## Лицензия
 
