@@ -14,7 +14,7 @@ A Go MCP server, CLI and agent skill for Timeweb Cloud S3 Object Storage. Connec
 
 Для cold/premium создайте бакет в панели; `mb` использует класс по умолчанию. Классы `standard/hot/cold` в профиле — тарифный каталог, не заголовок StorageClass объекта. Цена 0 означает неизвестную ставку за ГБ. PUT конфигурации Object Lock выключен до подтверждения; блокировки облака описаны в [ресерче](docs/research/timeweb-s3.md).
 
-Возьми бинарь своей платформы из Releases, когда версия будет опубликована, либо собери с Go 1.27.2:
+Возьми бинарь своей платформы из [Releases](https://github.com/stufently/timeweb-s3-mcp-ai-cli/releases/latest) (v0.1.0 опубликован; есть в MCP Registry и Smithery) либо собери с Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o timeweb-s3 ./cmd/timeweb-s3
@@ -28,7 +28,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 Приоритет: флаги > env > файл. Переменные: TIMEWEB_S3_ACCESS_KEY_ID, TIMEWEB_S3_SECRET_ACCESS_KEY, TIMEWEB_S3_POOL (ru-1), TIMEWEB_S3_ENDPOINT. HTTP требует TIMEWEB_S3_ALLOW_INSECURE=1.
 
-После публикации образ: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0; локальная сборка: docker build -t timeweb-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
+Образ: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0; локальная сборка: docker build -t timeweb-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
 
 ## Возможности
 

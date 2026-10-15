@@ -12,7 +12,7 @@ Streaming object CRUD, copy, multipart and presigned URLs follow the profile. Ve
 
 Create cold/premium buckets in the provider console; `mb` uses the default class. Profile classes `standard/hot/cold` are billing catalog IDs, not object StorageClass headers; zero prices mean no fixed per-GB estimate. Object Lock configuration writes remain disabled pending verification. See [research](docs/research/timeweb-s3.md).
 
-Use a platform binary from Releases once published, or build with Go 1.27.2:
+Use a platform binary from [Releases](https://github.com/stufently/timeweb-s3-mcp-ai-cli/releases/latest) (v0.1.0 is out; also listed in the MCP Registry and Smithery), or build with Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o timeweb-s3 ./cmd/timeweb-s3
@@ -26,7 +26,7 @@ auth set reads the key ID and secret without terminal echo; non-TTY input suppli
 
 Resolution: flags > env > file. Variables: TIMEWEB_S3_ACCESS_KEY_ID, TIMEWEB_S3_SECRET_ACCESS_KEY, TIMEWEB_S3_POOL (ru-1), TIMEWEB_S3_ENDPOINT. HTTP requires TIMEWEB_S3_ALLOW_INSECURE=1.
 
-After publication: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0. Build locally with docker build -t timeweb-s3 .; the scratch image runs MCP as uid 65532 with CA certificates. Supply a private credentials environment/file setup.
+Image: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0. Build locally with docker build -t timeweb-s3 .; the scratch image runs MCP as uid 65532 with CA certificates. Supply a private credentials environment/file setup.
 
 ## Connect to Claude Code, Cursor, Codex
 
