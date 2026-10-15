@@ -30,6 +30,37 @@ After publication: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0. Build locally 
 
 ## Connect to Claude Code, Cursor, Codex
 
+[![Add timeweb-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=timeweb-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIlRJTUVXRUJfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiVElNRVdFQl9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiVElNRVdFQl9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvdGltZXdlYi1zMy1tY3AtYWktY2xpOjAuMS4wIl0sImVudiI6eyJUSU1FV0VCX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpUSU1FV0VCX1MzX0FDQ0VTU19LRVlfSUR9IiwiVElNRVdFQl9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OlRJTUVXRUJfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiVElNRVdFQl9TM19QT09MIjoiJHtlbnY6VElNRVdFQl9TM19QT09MfSJ9fQ%3D%3D)
+
+The button installs the MCP server from the Docker image `ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0`, read-only. Keys stay out of the config: Cursor fills `${env:…}` from the environment, so set `TIMEWEB_S3_ACCESS_KEY_ID` and `TIMEWEB_S3_SECRET_ACCESS_KEY` where Cursor starts, and `TIMEWEB_S3_POOL` when the bucket is not in the default pool (empty means the default). The same block works for Windsurf (`mcp_config.json`) and by hand in `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "timeweb-s3": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "TIMEWEB_S3_ACCESS_KEY_ID",
+        "-e",
+        "TIMEWEB_S3_SECRET_ACCESS_KEY",
+        "-e",
+        "TIMEWEB_S3_POOL",
+        "ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0"
+      ],
+      "env": {
+        "TIMEWEB_S3_ACCESS_KEY_ID": "${env:TIMEWEB_S3_ACCESS_KEY_ID}",
+        "TIMEWEB_S3_SECRET_ACCESS_KEY": "${env:TIMEWEB_S3_SECRET_ACCESS_KEY}",
+        "TIMEWEB_S3_POOL": "${env:TIMEWEB_S3_POOL}"
+      }
+    }
+  }
+}
+```
+
 ```bash
 timeweb-s3 mcp install --client cursor --dry-run
 timeweb-s3 mcp install --client cursor
