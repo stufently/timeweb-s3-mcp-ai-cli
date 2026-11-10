@@ -14,7 +14,7 @@ A Go MCP server, CLI and agent skill for Timeweb Cloud S3 Object Storage. Connec
 
 Для cold/premium создайте бакет в панели; `mb` использует класс по умолчанию. Классы `standard/hot/cold` в профиле — тарифный каталог, не заголовок StorageClass объекта. Цена 0 означает неизвестную ставку за ГБ. PUT конфигурации Object Lock выключен до подтверждения; блокировки облака описаны в [ресерче](docs/research/timeweb-s3.md).
 
-Возьми бинарь своей платформы из [Releases](https://github.com/stufently/timeweb-s3-mcp-ai-cli/releases/latest) (v0.1.1 опубликован; есть в MCP Registry и Smithery) либо собери с Go 1.27.2:
+Возьми бинарь своей платформы из [Releases](https://github.com/stufently/timeweb-s3-mcp-ai-cli/releases/latest) (v0.1.0 опубликован; есть в MCP Registry и Smithery) либо собери с Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o timeweb-s3 ./cmd/timeweb-s3
@@ -28,7 +28,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 Приоритет: флаги > env > файл. Переменные: TIMEWEB_S3_ACCESS_KEY_ID, TIMEWEB_S3_SECRET_ACCESS_KEY, TIMEWEB_S3_POOL (ru-1), TIMEWEB_S3_ENDPOINT. HTTP требует TIMEWEB_S3_ALLOW_INSECURE=1.
 
-Образ: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.1; локальная сборка: docker build -t timeweb-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
+Образ: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0; локальная сборка: docker build -t timeweb-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
 
 ## Возможности
 
@@ -40,7 +40,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 [![Add timeweb-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=timeweb-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIlRJTUVXRUJfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiVElNRVdFQl9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiVElNRVdFQl9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvdGltZXdlYi1zMy1tY3AtYWktY2xpOjAuMS4wIl0sImVudiI6eyJUSU1FV0VCX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpUSU1FV0VCX1MzX0FDQ0VTU19LRVlfSUR9IiwiVElNRVdFQl9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OlRJTUVXRUJfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiVElNRVdFQl9TM19QT09MIjoiJHtlbnY6VElNRVdFQl9TM19QT09MfSJ9fQ%3D%3D)
 
-Кнопка ставит MCP из Docker-образа `ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.1` в режиме только чтения. Ключи в конфиг не пишутся: Cursor подставляет `${env:…}` из окружения, поэтому задай `TIMEWEB_S3_ACCESS_KEY_ID` и `TIMEWEB_S3_SECRET_ACCESS_KEY` там, откуда запускается Cursor; `TIMEWEB_S3_POOL` — если бакет не в пуле по умолчанию (пустое значение = пул по умолчанию). Тот же блок — для Windsurf (`mcp_config.json`) и вручную для `~/.cursor/mcp.json`:
+Кнопка ставит MCP из Docker-образа `ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0` в режиме только чтения. Ключи в конфиг не пишутся: Cursor подставляет `${env:…}` из окружения, поэтому задай `TIMEWEB_S3_ACCESS_KEY_ID` и `TIMEWEB_S3_SECRET_ACCESS_KEY` там, откуда запускается Cursor; `TIMEWEB_S3_POOL` — если бакет не в пуле по умолчанию (пустое значение = пул по умолчанию). Тот же блок — для Windsurf (`mcp_config.json`) и вручную для `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -57,7 +57,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
         "TIMEWEB_S3_SECRET_ACCESS_KEY",
         "-e",
         "TIMEWEB_S3_POOL",
-        "ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.1"
+        "ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0"
       ],
       "env": {
         "TIMEWEB_S3_ACCESS_KEY_ID": "${env:TIMEWEB_S3_ACCESS_KEY_ID}",

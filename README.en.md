@@ -12,7 +12,7 @@ Streaming object CRUD, copy, multipart and presigned URLs follow the profile. Ve
 
 Create cold/premium buckets in the provider console; `mb` uses the default class. Profile classes `standard/hot/cold` are billing catalog IDs, not object StorageClass headers; zero prices mean no fixed per-GB estimate. Object Lock configuration writes remain disabled pending verification. See [research](docs/research/timeweb-s3.md).
 
-Use a platform binary from [Releases](https://github.com/stufently/timeweb-s3-mcp-ai-cli/releases/latest) (v0.1.1 is out; also listed in the MCP Registry and Smithery), or build with Go 1.27.2:
+Use a platform binary from [Releases](https://github.com/stufently/timeweb-s3-mcp-ai-cli/releases/latest) (v0.1.0 is out; also listed in the MCP Registry and Smithery), or build with Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o timeweb-s3 ./cmd/timeweb-s3
@@ -26,13 +26,13 @@ auth set reads the key ID and secret without terminal echo; non-TTY input suppli
 
 Resolution: flags > env > file. Variables: TIMEWEB_S3_ACCESS_KEY_ID, TIMEWEB_S3_SECRET_ACCESS_KEY, TIMEWEB_S3_POOL (ru-1), TIMEWEB_S3_ENDPOINT. HTTP requires TIMEWEB_S3_ALLOW_INSECURE=1.
 
-Image: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.1. Build locally with docker build -t timeweb-s3 .; the scratch image runs MCP as uid 65532 with CA certificates. Supply a private credentials environment/file setup.
+Image: ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0. Build locally with docker build -t timeweb-s3 .; the scratch image runs MCP as uid 65532 with CA certificates. Supply a private credentials environment/file setup.
 
 ## Connect to Claude Code, Cursor, Codex
 
 [![Add timeweb-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=timeweb-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIlRJTUVXRUJfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiVElNRVdFQl9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiVElNRVdFQl9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvdGltZXdlYi1zMy1tY3AtYWktY2xpOjAuMS4wIl0sImVudiI6eyJUSU1FV0VCX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpUSU1FV0VCX1MzX0FDQ0VTU19LRVlfSUR9IiwiVElNRVdFQl9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OlRJTUVXRUJfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiVElNRVdFQl9TM19QT09MIjoiJHtlbnY6VElNRVdFQl9TM19QT09MfSJ9fQ%3D%3D)
 
-The button installs the MCP server from the Docker image `ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.1`, read-only. Keys stay out of the config: Cursor fills `${env:…}` from the environment, so set `TIMEWEB_S3_ACCESS_KEY_ID` and `TIMEWEB_S3_SECRET_ACCESS_KEY` where Cursor starts, and `TIMEWEB_S3_POOL` when the bucket is not in the default pool (empty means the default). The same block works for Windsurf (`mcp_config.json`) and by hand in `~/.cursor/mcp.json`:
+The button installs the MCP server from the Docker image `ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0`, read-only. Keys stay out of the config: Cursor fills `${env:…}` from the environment, so set `TIMEWEB_S3_ACCESS_KEY_ID` and `TIMEWEB_S3_SECRET_ACCESS_KEY` where Cursor starts, and `TIMEWEB_S3_POOL` when the bucket is not in the default pool (empty means the default). The same block works for Windsurf (`mcp_config.json`) and by hand in `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -49,7 +49,7 @@ The button installs the MCP server from the Docker image `ghcr.io/stufently/time
         "TIMEWEB_S3_SECRET_ACCESS_KEY",
         "-e",
         "TIMEWEB_S3_POOL",
-        "ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.1"
+        "ghcr.io/stufently/timeweb-s3-mcp-ai-cli:0.1.0"
       ],
       "env": {
         "TIMEWEB_S3_ACCESS_KEY_ID": "${env:TIMEWEB_S3_ACCESS_KEY_ID}",
